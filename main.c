@@ -1,8 +1,10 @@
 #include <stdio.h>
+#include <direct.h>
 
 int main()
 {
     int choix;
+    char chemin[500];
 
     printf("============================\n");
     printf("     MINI EXPLORATEUR\n");
@@ -17,8 +19,15 @@ int main()
 
     switch (choix) {
     case 1:
-        printf("Afficher le dossier actuel\n");
-        break;
+    if (getcwd(chemin, sizeof(chemin)) != NULL)
+    {
+        printf("Dossier actuel : %s\n", chemin);
+    }
+    else
+    {
+        printf("Erreur : impossible de recuperer le dossier actuel.\n");
+    }
+    break;
     case 2:
         printf("Lister Les fichier\n");
         break;
