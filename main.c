@@ -15,7 +15,19 @@ int main()
     printf("\nVotre choix : ");
     scanf("%d", &choix);
 
-    printf("Vous avez choisi : %d\n", choix);
+    switch (choix) {
+    case 1:
+        printf("Afficher le dossier actuel\n");
+        break;
+    case 2:
+        printf("Lister Les fichier\n");
+        break;
+    case 3:
+        printf("Au revoir!\n");
+        break;
+    default:
+        printf("Choix Invalid.\n");
+        break;}
 
     return 0;
 }
