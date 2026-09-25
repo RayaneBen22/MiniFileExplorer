@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <direct.h>
-
+#include <dirent.h>
 int main()
 {
     int choix;
@@ -28,9 +28,27 @@ int main()
         printf("Erreur : impossible de recuperer le dossier actuel.\n");
     }
     break;
-    case 2:
-        printf("Lister Les fichier\n");
+   case 2:
+{
+    DIR *dossier;
+    struct dirent *element;
+
+    dossier = opendir(".");
+
+    if (dossier == NULL)
+    {
+        printf("Erreur : impossible d'ouvrir le dossier.\n");
         break;
+    }
+
+    while ((element = readdir(dossier)) != NULL)
+    {
+        printf("%s\n", element->d_name);
+    }
+
+    closedir(dossier);
+    break;
+}
     case 3:
         printf("Au revoir!\n");
         break;
