@@ -1,0 +1,8 @@
+# Fichiers generes par Code::Blocks
+bin/
+obj/
+*.depend
+*.layout
+
+# Fichiers executables
+*.exe
