@@ -5,6 +5,7 @@ int main()
 {
     int choix;
     char chemin[500];
+    char nouveauChemin[500];
 
     printf("============================\n");
     printf("     MINI EXPLORATEUR\n");
@@ -12,8 +13,10 @@ int main()
 
     printf("\n1. Afficher le dossier actuel\n");
     printf("2. Lister les fichiers\n");
-    printf("3. Quitter\n");
+    printf("3. Changer de dossier\n");
+    printf("4. Quitter\n");
 
+    do {
     printf("\nVotre choix : ");
     scanf("%d", &choix);
 
@@ -50,11 +53,22 @@ int main()
     break;
 }
     case 3:
+    printf("Entrez le chemin du dossier : ");
+    scanf("%499s", nouveauChemin);
+
+    if (_chdir(nouveauChemin) == 0)
+    {
+        printf("Dossier change avec succes.\n");
+    }
+    else
+    {
+        printf("Erreur : impossible de changer de dossier.\n");
+    }
+    break;
+    case 4:
         printf("Au revoir!\n");
-        break;
-    default:
-        printf("Choix Invalid.\n");
         break;}
+        } while (choix != 4);
 
     return 0;
 }
