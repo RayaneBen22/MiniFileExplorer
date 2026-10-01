@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <direct.h>
 #include <dirent.h>
+
 int main()
 {
     int choix;
@@ -15,60 +16,92 @@ int main()
     printf("2. Lister les fichiers\n");
     printf("3. Changer de dossier\n");
     printf("4. Quitter\n");
+    printf("5. Revenir au dossier parent\n");
 
-    do {
-    printf("\nVotre choix : ");
-    scanf("%d", &choix);
+    do
+    {
+        printf("\nVotre choix : ");
+        scanf("%d", &choix);
 
-    switch (choix) {
+        switch (choix)
+        {
     case 1:
-    if (getcwd(chemin, sizeof(chemin)) != NULL)
-    {
+        if (getcwd(chemin, sizeof(chemin)) != NULL)
+        {
         printf("Dossier actuel : %s\n", chemin);
-    }
-    else
-    {
+        }
+        else
+        {
         printf("Erreur : impossible de recuperer le dossier actuel.\n");
-    }
-    break;
-   case 2:
-{
-    DIR *dossier;
-    struct dirent *element;
-
-    dossier = opendir(".");
-
-    if (dossier == NULL)
-    {
-        printf("Erreur : impossible d'ouvrir le dossier.\n");
+        }
         break;
-    }
 
-    while ((element = readdir(dossier)) != NULL)
-    {
-        printf("%s\n", element->d_name);
-    }
+     case 2:
+            {
+     DIR *dossier;
+     struct dirent *element;
+     dossier = opendir(".");
 
-    closedir(dossier);
-    break;
-}
-    case 3:
-    printf("Entrez le chemin du dossier : ");
-    scanf("%499s", nouveauChemin);
+     if (dossier == NULL)
+       {
+     printf("Erreur : impossible d'ouvrir le dossier.\n");
+     break;
+        }
 
-    if (_chdir(nouveauChemin) == 0)
-    {
-        printf("Dossier change avec succes.\n");
-    }
-    else
-    {
-        printf("Erreur : impossible de changer de dossier.\n");
-    }
-    break;
-    case 4:
-        printf("Au revoir!\n");
-        break;}
-        } while (choix != 4);
+     while ((element = readdir(dossier)) != NULL)
+         {
+     printf("%s\n", element->d_name);
+          }
+
+     closedir(dossier);
+     break;
+            }
+
+     case 3:
+     printf("Entrez le chemin du dossier : ");
+     scanf("%499s", nouveauChemin);
+
+     if (_chdir(nouveauChemin) == 0)
+      {
+     printf("Dossier change avec succes.\n");
+
+     if (getcwd(chemin, sizeof(chemin)) != NULL)
+      {
+     printf("Nouveau dossier : %s\n", chemin);
+        }
+         }
+     else
+        {
+     printf("Erreur : impossible de changer de dossier.\n");
+          }
+     break;
+
+     case 4:
+     printf("Au revoir!\n");
+     break;
+
+     case 5:
+     if (_chdir("..") == 0)
+      {
+     printf("Retour au dossier parent avec succes.\n");
+
+      if (getcwd(chemin, sizeof(chemin)) != NULL)
+      {
+       printf("Dossier actuel : %s\n", chemin);
+        }
+         }
+      else
+         {
+      printf("Erreur : impossible de revenir au dossier parent.\n");
+          }
+       break;
+
+       default:
+      printf("Choix invalide.\n");
+     break;
+        }
+
+    } while (choix != 4);
 
     return 0;
 }
